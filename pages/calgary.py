@@ -22,6 +22,11 @@ def get_data():
 
 data = get_data()
 
+dfCrimeResCount = data[['Year', 'Sector', 'Crime Count', 'Resident Count']].groupby(['Year', 'Sector']).sum().reset_index()
+fig = px.line(dfCrimeResCount, x="Resident Count", y="Crime Count", color='Sector', text="Year")
+fig.update_traces(textposition="bottom right")
+st.plotly_chart(fig, use_container_width=True)
+
 dfCrimeCount = data[['Sector', 'Year', 'Crime Count']].groupby(['Year', 'Sector']).sum().reset_index()
 
 fig = px.bar(dfCrimeCount, x="Year", y="Crime Count", color="Sector", barmode="group")
