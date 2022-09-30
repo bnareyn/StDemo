@@ -21,6 +21,9 @@ def get_data():
 data = get_data()
 
 dfCrimeCount = data[['Sector', 'Year', 'Crime Count']].groupby(['Year', 'Sector']).sum().reset_index()
+
+fig = px.bar(dfCrimeCount, x="Year", y="Crime Count", color="Sector", barmode="group")
+
 fig = px.line(dfCrimeCount, x="Year", y="Crime Count", color='Sector')
 
 st.plotly_chart(fig, use_container_width=True)
