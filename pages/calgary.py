@@ -6,6 +6,8 @@ import plotly.express as px
 
 st.sidebar.header("Calgary Crime Data")
 
+DATA_URL = "https://data.calgary.ca/api/views/848s-4m4z/rows.csv?accessType=DOWNLOAD"
+
 @st.cache
 def get_data():
     df = pd.read_csv(DATA_URL)
