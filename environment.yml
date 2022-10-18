@@ -1,0 +1,11 @@
+name: dachboard
+channels:
+  - defaults
+dependencies:
+  - pip
+  - bokeh
+  - plotly=5.10
+  - geopandas
+  - pydeck
+  - gh
+prefix: ~/.conda/envs/dachboard
