@@ -4,6 +4,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+import os
+
 hide_streamlit_style = """
 <style>
     #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
@@ -31,7 +33,7 @@ def setAppConfigs():
         }
     )
 
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+    #st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
     genre = st.radio("",("BYOD", "Kaggle", "DAC"), horizontal = True)
 
@@ -71,6 +73,12 @@ def setAppConfigs():
         print(autoViz.overall)
 
         viz = st.radio("",("Bar", "Pie", "Map"), horizontal = True)
+    
+    files = os.listdir(path='.')
+    st.write(files)
+
+    files = os.listdir(path='./AutoViz_Plots/AutoViz')
+    st.write(files)
     
     if viz == "Bar":
         st.write("bar")
