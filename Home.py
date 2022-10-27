@@ -1,7 +1,12 @@
 # import stream lit
 import streamlit as st
 
+hide_streamlit_style = """
+<style>
+    #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
+</style>
 
+"""
 
 ##################################################
 #
@@ -15,18 +20,42 @@ def setAppConfigs():
     """
     st.set_page_config(
         page_title="DACBoard",
-        page_icon="🧊",
+        page_icon="📊",
         layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
             'About': "Data Analytics Center - Algonquin College"
         }
     )
-    col1, col2, col3, col4 = st.columns(4)
 
-    with col4:
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+    genre = st.radio("",("BYOD", "Kaggle", "DAC"), horizontal = True)
+
+    col1, col2, col3, col6 = st.columns(4)
+    #with col1:
+        #st.write("🗃️ BYOD")
+    
+    #with col2:
+    #    st.write("🇰 Kaggle")
+    
+    #with col3:
+    #    st.write("DAC")
+
+    with col6:
         st.image('images/dac.png', width=500)
+    
+    if genre == "BYOD":
+        uploaded_file = st.file_uploader("Upload your data")
+    elif genre == "Kaggle":
+        st.write("Kaggle")
+    else:
+        st.write("DAC")
 
+
+    
+
+    
 
 
 
@@ -42,11 +71,11 @@ def main():
        returns: None
     """
     setAppConfigs()
+    
 
 
 
     #st.image()
-    uploaded_file = st.file_uploader("Upload your data")
 
 
 ##################################################
