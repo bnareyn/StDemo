@@ -1,11 +1,14 @@
 # import stream lit
 import streamlit as st
 
+import numpy as np
+import pandas as pd
+
 hide_streamlit_style = """
 <style>
     #root > div:nth-child(1) > div > div > div > div > section > div {padding-top: 0rem;}
+    #MainMenu {visibility: hidden;}
 </style>
-
 """
 
 ##################################################
@@ -45,17 +48,18 @@ def setAppConfigs():
     with col6:
         st.image('images/dac.png', width=500)
     
+    uploaded_file = None
     if genre == "BYOD":
         uploaded_file = st.file_uploader("Upload your data")
     elif genre == "Kaggle":
         st.write("Kaggle")
     else:
         st.write("DAC")
-
-
     
-
-    
+    if uploaded_file is not None:
+            dataframe = pd.read_csv(uploaded_file, encoding = 'latin1')
+            st.write(dataframe)
+ 
 
 
 
