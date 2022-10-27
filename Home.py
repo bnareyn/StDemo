@@ -56,9 +56,31 @@ def setAppConfigs():
     else:
         st.write("DAC")
     
+    from autoviz.AutoViz_Class import AutoViz_Class
+    autoViz = AutoViz_Class()
+
+    viz = None
     if uploaded_file is not None:
-            dataframe = pd.read_csv(uploaded_file, encoding = 'latin1')
-            st.write(dataframe)
+        dataframe = pd.read_csv(uploaded_file, encoding = 'latin1')
+        #st.write(list(dataframe.columns))
+        dataframe.to_csv("uploaded.csv")
+
+        avDF = autoViz.AutoViz("uploaded.csv", sep=",", 
+        dfte=None, header=0, verbose=0, lowess=False, 
+        chart_format="html", max_rows_analyzed=2000, max_cols_analyzed=20, )
+        print(autoViz.overall)
+
+        viz = st.radio("",("Bar", "Pie", "Map"), horizontal = True)
+    
+    if viz == "Bar":
+        st.write("bar")
+    elif viz == "Pie":
+        st.write("Pie")
+    elif viz == "Map":
+        st.write("Map")
+    else:
+        pass
+
  
 
 
