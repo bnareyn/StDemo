@@ -1,5 +1,6 @@
 # import stream lit
 import streamlit as st
+import streamlit.components.v1 as components
 
 import numpy as np
 import pandas as pd
@@ -12,6 +13,18 @@ hide_streamlit_style = """
     #MainMenu {visibility: hidden;}
 </style>
 """
+
+def cleanupFolder(folderName):
+    try:
+        files = os.listdir(path = folderName)
+
+        for file in files:
+            fileName = os.path.join(folderName, file)
+            os.unlink(fileName)
+
+    except Exception as e:
+        print(e)
+
 
 ##################################################
 #
@@ -62,32 +75,62 @@ def setAppConfigs():
     autoViz = AutoViz_Class()
 
     viz = None
+    folderName = "./AutoViz_Plots/AutoViz"
+    fileName = "uploaded.csv"
     if uploaded_file is not None:
         dataframe = pd.read_csv(uploaded_file, encoding = 'latin1')
         #st.write(list(dataframe.columns))
-        dataframe.to_csv("uploaded.csv")
+        dataframe.to_csv(fileName)
 
-        avDF = autoViz.AutoViz("uploaded.csv", sep=",", 
+        # cleanup plots folder
+        cleanupFolder( folderName )
+
+        # Create vizualizations
+        avDF = autoViz.AutoViz( fileName, sep=",", 
         dfte=None, header=0, verbose=0, lowess=False, 
         chart_format="html", max_rows_analyzed=2000, max_cols_analyzed=20, )
         print(autoViz.overall)
 
-        viz = st.radio("",("Bar", "Pie", "Map"), horizontal = True)
-    
-    files = os.listdir(path='.')
-    st.write(files)
+        # Display visualizations
+        
+        files = os.listdir(path = folderName)
 
-    files = os.listdir(path='./AutoViz_Plots/AutoViz')
-    st.write(files)
+        #for file in files:
+        #    fileName = os.path.join(folderName, file)
+        #    with open( fileName ) as f:
+        #        html = f.read()
+        #        components.html(html, height = 200)
+        tabNames = [ name.split('.')[0].title() for name in files]
+        tabs = st.tabs(tabNames)
+        for tab, file in zip(tabs, files):
+            with tab:
+                fileName = os.path.join(folderName, file)
+                with open( fileName ) as f:
+                    html = f.read()
+                    components.html(html, height = 900)
+
+
+
+                
+
+
+
+
     
-    if viz == "Bar":
-        st.write("bar")
-    elif viz == "Pie":
-        st.write("Pie")
-    elif viz == "Map":
-        st.write("Map")
-    else:
-        pass
+    #files = os.listdir(path='.')
+    #st.write(files)
+
+    #files = os.listdir(path='./AutoViz_Plots/AutoViz')
+    #st.write(files)
+    
+    #if viz == "Bar":
+    #    st.write("bar")
+    #elif viz == "Pie":
+    #    st.write("Pie")
+    #elif viz == "Map":
+    #    st.write("Map")
+    #else:
+    #    pass
 
  
 
