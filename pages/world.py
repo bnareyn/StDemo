@@ -1,20 +1,18 @@
 import streamlit as st
 import plotly.figure_factory as ff
+
 import numpy as np
 
-# Add histogram data
-x1 = np.random.randn(200) - 2
-x2 = np.random.randn(200)
-x3 = np.random.randn(200) + 2
+import plotly.graph_objects as go
 
-# Group data together
-hist_data = [x1, x2, x3]
+fig = go.Figure(go.Scattergeo())
+fig.update_layout(height=300, margin={"r":0,"t":0,"l":0,"b":0})
 
-group_labels = ['Group 1', 'Group 2', 'Group 3']
-
-# Create distplot with custom bin_size
-fig = ff.create_distplot(
-        hist_data, group_labels, bin_size=[.1, .25, .5])
-
-# Plot!
 st.plotly_chart(fig, use_container_width=True)
+
+start_time = st.slider(
+    "When do you start?",
+    min_value = 1990,
+    max_value = 2100,
+    value= 2010)
+st.write("Start time:", start_time)

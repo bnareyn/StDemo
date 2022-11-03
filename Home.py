@@ -80,7 +80,7 @@ def setAppConfigs():
     if uploaded_file is not None:
         dataframe = pd.read_csv(uploaded_file, encoding = 'latin1')
         #st.write(list(dataframe.columns))
-        dataframe.to_csv(fileName)
+        dataframe.to_csv(fileName, index = False)
 
         # cleanup plots folder
         cleanupFolder( folderName )
