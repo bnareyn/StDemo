@@ -39,7 +39,7 @@ def setAppConfigs():
     st.set_page_config(
         page_title="DACBoard",
         page_icon="📊",
-        layout="wide",
+        #layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
             'About': "Data Analytics Center - Algonquin College"
